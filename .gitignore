@@ -47,6 +47,10 @@ desktop.ini
 data/*.db
 data/*.db-*
 
+# Screenshots (Playwright)
+screenshot-*.png
+*.screenshot.png
+
 # Misc
 *.log
 npm-debug.log*
