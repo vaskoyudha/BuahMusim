@@ -12,6 +12,7 @@ import {
 } from '@buahmusim/shared';
 import { PriceChart } from '@/components/charts/PriceChart';
 import { PriceStats } from '@/components/charts/PriceStats';
+import RecommendationCard from '@/components/recommendations/RecommendationCard';
 
 // ── Season badge ──────────────────────────────────────────────────────────────
 
@@ -192,6 +193,12 @@ export default function FruitDetailPage() {
     fetchData();
   }, [fetchData]);
 
+  useEffect(() => {
+    if (fruit) {
+      document.title = `${fruit.nameId} | BuahMusim`;
+    }
+  }, [fruit]);
+
   // ── 404 state ──
   if (notFound) {
     return (
@@ -298,6 +305,9 @@ export default function FruitDetailPage() {
           isLoading={isLoading}
         />
       </div>
+
+      {/* ── Rekomendasi ── */}
+      <RecommendationCard fruitId={fruitId} cityId={cityId} />
 
       {/* ── Season info card ── */}
       <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm space-y-3">

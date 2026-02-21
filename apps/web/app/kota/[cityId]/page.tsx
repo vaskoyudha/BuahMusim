@@ -181,6 +181,13 @@ export default function CityDetailPage() {
     fetchPrices();
   }, [city, cityId]);
 
+  // Update document title when city is loaded
+  useEffect(() => {
+    if (city) {
+      document.title = `${city.name} | BuahMusim`;
+    }
+  }, [city]);
+
   // Sort fruits
   const sortedFruits = useMemo(() => {
     const base = [...FRUITS];
