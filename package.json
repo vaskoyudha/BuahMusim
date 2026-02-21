@@ -1,0 +1,20 @@
+{
+  "name": "buahmusim",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Indonesian seasonal fruit price prediction web app",
+  "scripts": {
+    "dev": "pnpm --filter @buahmusim/web dev",
+    "build": "pnpm --filter @buahmusim/web build",
+    "start": "pnpm --filter @buahmusim/web start",
+    "lint": "pnpm --filter @buahmusim/web lint",
+    "clean": "pnpm -r exec rm -rf node_modules .next dist"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["better-sqlite3"]
+  }
+}
