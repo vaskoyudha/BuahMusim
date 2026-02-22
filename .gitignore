@@ -47,9 +47,10 @@ desktop.ini
 data/*.db
 data/*.db-*
 
-# Screenshots (Playwright)
-screenshot-*.png
-*.screenshot.png
+# Screenshots (Playwright - temp files at root)
+/screenshot-*.png
+/*.screenshot.png
+# docs/screenshots/ is intentionally tracked
 
 # Misc
 *.log

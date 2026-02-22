@@ -1,26 +1,77 @@
-# 🍎 BuahMusim
+<div align="center">
 
-> **Prediksi Harga Buah Indonesia** — *Beli sekarang atau tunggu?*
+<img src="apps/web/app/icon.svg" width="80" height="80" alt="BuahMusim Logo" />
 
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
-[![Python](https://img.shields.io/badge/Python-3.11+-blue?logo=python)](https://python.org/)
-[![SQLite](https://img.shields.io/badge/SQLite-3-blue?logo=sqlite)](https://sqlite.org/)
-[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker)](https://docker.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+# BuahMusim 🍎
+
+### Indonesian Fruit Price Intelligence Platform
+
+**_Beli sekarang atau tunggu? — Buy now or wait?_**
+
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white)](https://typescriptlang.org/)
+[![Python](https://img.shields.io/badge/Python-3.11+-3776ab?logo=python&logoColor=white)](https://python.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-06b6d4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](https://docker.com/)
+[![SQLite](https://img.shields.io/badge/SQLite-3-003b57?logo=sqlite&logoColor=white)](https://sqlite.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-22c55e.svg)](LICENSE)
+
+<br/>
+
+[**Report Bug**](https://github.com/vaskoyudha/BuahMusim/issues/new?template=bug_report.md) · [**Request Feature**](https://github.com/vaskoyudha/BuahMusim/issues/new?template=feature_request.md) · [**Contributing**](CONTRIBUTING.md)
+
+</div>
 
 ---
 
-## Tentang BuahMusim
+## 📸 Screenshots
 
-BuahMusim is an Indonesian fruit price intelligence platform that helps consumers decide whether to buy their favorite fruit today or wait for a better price. The app tracks daily prices across 10 major Indonesian cities for 30 seasonal fruits, uses Facebook's Prophet time-series model for 28-day price forecasts, and leverages LLM analysis (Groq/Llama-3.3) to generate plain-language buy/wait recommendations in Bahasa Indonesia.
-
-The core insight is simple: Indonesian fruit prices are highly seasonal. Durian in January costs half as much as in August. Mangga peaks in September–November. Without price history, consumers overpay. BuahMusim makes this knowledge accessible with an intuitive, mobile-friendly interface.
-
-The system is built as a full-stack monorepo: a Next.js 15 web app handles the UI and REST API, a Python FastAPI ML service runs Prophet models for predictions, and a SQLite database stores price history and cached recommendations. Everything can be spun up with a single `docker compose up` command.
+<table>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/home.png" alt="Home Page — Hero, In-Season Fruits, Price Map" />
+      <p align="center"><strong>Home Page</strong> — Hero, In-Season Fruits &amp; Price Map</p>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/fruit-detail.png" alt="Fruit Detail — Price Chart, Prediction, AI Recommendation" />
+      <p align="center"><strong>Fruit Detail</strong> — Chart, Forecast &amp; AI Recommendation</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/map.png" alt="Price Map — Interactive Leaflet map showing cheapest cities" />
+      <p align="center"><strong>Price Map</strong> — Cheapest cities per fruit at a glance</p>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/calendar.png" alt="Seasonal Calendar — 12-month harvest grid for all 30 fruits" />
+      <p align="center"><strong>Seasonal Calendar</strong> — 12-month harvest grid</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/fruit-list.png" alt="Fruit Catalogue — 30 fruits with season badges and price ranges" />
+      <p align="center"><strong>Fruit Catalogue</strong> — 30 fruits with season badges</p>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/cities.png" alt="City List — 10 major Indonesian market cities" />
+      <p align="center"><strong>Cities</strong> — 10 major Indonesian market cities</p>
+    </td>
+  </tr>
+</table>
 
 ---
 
-## Fitur Utama (Key Features)
+## 🌟 What is BuahMusim?
+
+BuahMusim (**Buah** = fruit, **Musim** = season) is an Indonesian fruit price intelligence platform that helps consumers decide whether to buy their favorite fruit today or wait for a better price. The app tracks daily prices across **10 major Indonesian cities** for **30 seasonal fruits**, uses Facebook's Prophet time-series model for **28-day price forecasts**, and leverages LLM analysis (Groq/Llama-3.3) to generate plain-language buy/wait recommendations in Bahasa Indonesia.
+
+The core insight is simple: Indonesian fruit prices are **highly seasonal**. Durian in January costs half as much as in August. Mangga peaks in September–November. Without price history, consumers overpay. BuahMusim makes this knowledge accessible with an intuitive, mobile-friendly interface.
+
+The system is built as a **full-stack monorepo**: a Next.js 15 web app handles the UI and REST API, a Python FastAPI ML service runs Prophet models for predictions, and a SQLite database stores price history and cached recommendations. Everything spins up with a single `docker compose up` command.
+
+---
+
+## ✨ Features
 
 - 📈 **Price History Charts** — 30/60/90-day interactive price charts per fruit per city using Recharts
 - 🔮 **28-Day Forecasts** — Prophet ML model predictions with confidence intervals
@@ -34,7 +85,7 @@ The system is built as a full-stack monorepo: a Next.js 15 web app handles the U
 
 ---
 
-## Arsitektur (Architecture)
+## 🏗️ Architecture
 
 ### Tech Stack
 
@@ -98,7 +149,7 @@ The system is built as a full-stack monorepo: a Next.js 15 web app handles the U
 
 ---
 
-## Quickstart
+## 🚀 Quick Start
 
 ### Docker Compose (Recommended)
 
@@ -159,7 +210,7 @@ pnpm --filter @buahmusim/web build
 
 ---
 
-## Environment Variables
+## ⚙️ Environment Variables
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
@@ -169,7 +220,7 @@ pnpm --filter @buahmusim/web build
 
 ---
 
-## API Reference
+## 📡 API Reference
 
 All endpoints return JSON. Error responses follow `{ error: string, code: number }`.
 
@@ -197,7 +248,7 @@ All endpoints return JSON. Error responses follow `{ error: string, code: number
 
 ---
 
-## Data Model
+## 🗄️ Database Schema
 
 The SQLite database contains three tables:
 
@@ -227,7 +278,7 @@ The SQLite database contains three tables:
 
 ---
 
-## ML Model
+## 🔬 ML Model
 
 The prediction service uses **Facebook Prophet**, a Bayesian structural time-series model designed for business forecasting with strong seasonality and holiday effects. Prophet was chosen because Indonesian fruit prices exhibit clear yearly seasonality (wet/dry season cycles), trend reversals around Ramadan, and occasional abrupt spikes — all patterns Prophet handles gracefully without manual feature engineering.
 
@@ -237,7 +288,7 @@ The model is fitted on-demand per fruit-city pair using the last 90 days of pric
 
 ---
 
-## 30 Buah (Fruits)
+## 🍎 The 30 Fruits
 
 | # | ID | Nama | Emoji | Musim Puncak |
 |---|----|------|-------|--------------|
@@ -274,7 +325,7 @@ The model is fitted on-demand per fruit-city pair using the last 90 days of pric
 
 ---
 
-## 10 Kota (Cities)
+## 🏙️ The 10 Cities
 
 | # | ID | Kota | Provinsi | Pasar Referensi |
 |---|----|------|----------|-----------------|
@@ -291,7 +342,7 @@ The model is fitted on-demand per fruit-city pair using the last 90 days of pric
 
 ---
 
-## Roadmap
+## 🗺️ Roadmap
 
 - [ ] **Real price data ingestion** — Web scrapers for Pusat Informasi Harga Pangan Strategis (PIHPS) and BPS databases to replace synthetic data with real market prices
 - [ ] **User price submissions** — Crowdsourced price reports with geolocation, photo verification, and upvote/downvote system
@@ -302,7 +353,7 @@ The model is fitted on-demand per fruit-city pair using the last 90 days of pric
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 BuahMusim/
@@ -329,7 +380,7 @@ BuahMusim/
 
 ---
 
-## Development Notes
+## 🛠️ Development Notes
 
 - **TypeScript** is strict throughout. Run `pnpm --filter @buahmusim/web build` to type-check.
 - **Tailwind v4** — config lives in `apps/web/app/globals.css` via `@theme {}`. No `tailwind.config.js` needed.
@@ -340,6 +391,16 @@ BuahMusim/
 
 ---
 
-## License
+## 📄 License
 
-MIT © 2026 BuahMusim Contributors
+MIT © 2026 BuahMusim Contributors — see [LICENSE](LICENSE) for full text.
+
+---
+
+<div align="center">
+
+Made with 🍎 in Indonesia
+
+**[⭐ Star this repo if you find it useful!](https://github.com/vaskoyudha/BuahMusim)**
+
+</div>
