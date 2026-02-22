@@ -9,7 +9,7 @@ const HOME_FRUITS = ['mangga', 'durian', 'semangka', 'pisang', 'jeruk', 'alpukat
 
 function MapSkeleton() {
   return (
-    <div className="w-full h-full bg-gray-100 rounded-xl animate-pulse flex items-center justify-center text-gray-400 text-sm">
+    <div className="w-full h-full bg-gradient-to-br from-primary-50 to-gray-100 rounded-xl animate-shimmer flex items-center justify-center text-gray-400 text-sm">
       Memuat peta...
     </div>
   );
@@ -65,8 +65,14 @@ export function HomeMapSection({ initialData }: HomeMapSectionProps) {
   return (
     <section>
       <div className="flex items-baseline justify-between mb-1">
-        <h2 className="text-xl font-bold text-gray-900">Peta Harga Hari Ini</h2>
-        <a href="/peta" className="text-xs text-primary-600 hover:underline">
+        <div className="flex items-center gap-2">
+          <span className="w-1 h-6 rounded-full bg-primary-500 inline-block shrink-0" />
+          <div>
+            <h2 className="text-xl font-bold text-gray-900">Peta Harga Hari Ini</h2>
+            <p className="text-xs text-gray-400 mt-0.5">Klik kota di peta untuk melihat detail harga</p>
+          </div>
+        </div>
+        <a href="/peta" className="text-xs text-primary-600 hover:underline shrink-0">
           Semua buah →
         </a>
       </div>
@@ -80,10 +86,10 @@ export function HomeMapSection({ initialData }: HomeMapSectionProps) {
           <button
             key={fruit.id}
             onClick={() => setSelectedFruit(fruit.id)}
-            className={`rounded-full px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-colors ${
+            className={`rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap transition-all duration-200 ${
               selectedFruit === fruit.id
-                ? 'bg-primary-600 text-white'
-                : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'
+                ? 'bg-gradient-to-r from-primary-600 to-emerald-600 text-white border-transparent shadow-md scale-[1.02]'
+                : 'bg-white border border-gray-200/80 text-gray-700 hover:border-primary-300 hover:text-primary-700 hover:bg-primary-50/50 shadow-sm'
             }`}
           >
             {fruit.emoji} {fruit.nameId}
@@ -92,7 +98,7 @@ export function HomeMapSection({ initialData }: HomeMapSectionProps) {
       </div>
 
       {/* Map */}
-      <div className="h-[300px] md:h-[400px] rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+      <div className="h-[300px] md:h-[400px] rounded-xl overflow-hidden border border-primary-100/60 shadow-md ring-1 ring-primary-200/30">
         <IndonesiaMap
           citiesData={mapData?.cities ?? []}
           fruitNameId={selectedFruitData?.nameId ?? selectedFruit}
