@@ -21,14 +21,14 @@ function SeasonBadge({ fruitId }: { fruitId: string }) {
   const status = getSeasonStatus(fruitId, month);
 
   const config = {
-    peak:       { label: '🟢 Musim Panen',  cls: 'bg-green-100 text-green-800' },
-    transition: { label: '🟡 Transisi',      cls: 'bg-yellow-100 text-yellow-800' },
-    normal:     { label: '🟡 Sedang',        cls: 'bg-yellow-100 text-yellow-800' },
-    off:        { label: '🔴 Tidak Musim',   cls: 'bg-red-100 text-red-800' },
+    peak:       { label: '🟢 Musim Panen',  cls: 'bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-sm' },
+    transition: { label: '🟡 Transisi',      cls: 'bg-gradient-to-r from-amber-400 to-yellow-500 text-white shadow-sm' },
+    normal:     { label: '🟡 Sedang',        cls: 'bg-gray-100 text-gray-600 border border-gray-200' },
+    off:        { label: '🔴 Tidak Musim',   cls: 'bg-gradient-to-r from-red-400 to-rose-500 text-white shadow-sm' },
   }[status];
 
   return (
-    <span className={`inline-flex items-center text-xs font-semibold px-2.5 py-0.5 rounded-full ${config.cls}`}>
+    <span className={`inline-flex items-center text-xs font-semibold px-3 py-1 rounded-full ${config.cls}`}>
       {config.label}
     </span>
   );
@@ -38,27 +38,32 @@ function SeasonBadge({ fruitId }: { fruitId: string }) {
 
 function PageSkeleton() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6 space-y-6 animate-pulse">
+    <div className="max-w-4xl mx-auto px-4 py-6 space-y-5">
       {/* Header */}
-      <div className="space-y-2">
-        <div className="h-10 w-48 bg-gray-200 rounded-lg" />
-        <div className="h-5 w-32 bg-gray-200 rounded-lg" />
-        <div className="h-6 w-24 bg-gray-200 rounded-full" />
+      <div className="card-premium p-5 space-y-3">
+        <div className="flex items-start gap-4">
+          <div className="w-20 h-20 rounded-3xl animate-shimmer shrink-0" />
+          <div className="flex-1 space-y-2 pt-1">
+            <div className="h-8 w-48 animate-shimmer rounded-lg" />
+            <div className="h-4 w-32 animate-shimmer rounded-lg" />
+            <div className="h-6 w-24 animate-shimmer rounded-full" />
+          </div>
+        </div>
       </div>
       {/* City tabs */}
       <div className="flex gap-2 overflow-hidden">
         {Array.from({ length: 10 }).map((_, i) => (
-          <div key={i} className="h-9 w-20 bg-gray-200 rounded-full shrink-0" />
+          <div key={i} className="h-9 w-20 animate-shimmer rounded-full shrink-0" />
         ))}
       </div>
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="h-24 bg-gray-200 rounded-xl" />
+          <div key={i} className="h-28 animate-shimmer rounded-2xl" />
         ))}
       </div>
       {/* Chart */}
-      <div className="h-80 bg-gray-200 rounded-2xl" />
+      <div className="h-80 animate-shimmer rounded-2xl" />
     </div>
   );
 }
@@ -202,16 +207,20 @@ export default function FruitDetailPage() {
   // ── 404 state ──
   if (notFound) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-        <p className="text-6xl mb-4">🍂</p>
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">Buah tidak ditemukan</h1>
-        <p className="text-gray-500 mb-6">ID &ldquo;{fruitId}&rdquo; tidak ada dalam database kami.</p>
-        <button
-          onClick={() => router.back()}
-          className="px-4 py-2 bg-primary-600 text-white rounded-xl text-sm font-medium hover:bg-primary-700 transition-colors"
-        >
-          ← Kembali
-        </button>
+      <div className="max-w-4xl mx-auto px-4 py-16 flex justify-center">
+        <div className="card-premium p-10 text-center max-w-sm w-full">
+          <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center text-4xl mx-auto mb-5">
+            🍂
+          </div>
+          <h1 className="text-2xl font-bold text-gray-800 mb-2">Buah tidak ditemukan</h1>
+          <p className="text-gray-500 mb-6 text-sm">ID &ldquo;{fruitId}&rdquo; tidak ada dalam database kami.</p>
+          <button
+            onClick={() => router.back()}
+            className="px-5 py-2.5 bg-gradient-to-r from-primary-600 to-emerald-600 text-white rounded-xl text-sm font-semibold hover:from-primary-700 hover:to-emerald-700 transition-all shadow-sm"
+          >
+            ← Kembali
+          </button>
+        </div>
       </div>
     );
   }
@@ -237,30 +246,40 @@ export default function FruitDetailPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
+    <div className="max-w-4xl mx-auto px-4 py-6 space-y-5">
       {/* ── Fruit header ── */}
-      <div className="flex items-start gap-4">
-        <span className="text-5xl leading-none">{fruit.emoji}</span>
-        <div className="flex-1 min-w-0">
-          <h1 className="text-3xl font-bold text-gray-900">{fruit.nameId}</h1>
-          <p className="text-sm text-gray-500 italic mt-0.5">{fruit.nameEn}</p>
-          <div className="mt-2">
-            <SeasonBadge fruitId={fruitId} />
+      <div
+        className="card-premium p-5"
+        style={{ background: 'linear-gradient(135deg, rgba(240,253,244,0.9) 0%, #ffffff 60%)' }}
+      >
+        <div className="flex items-start gap-4">
+          <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary-100 to-emerald-50 flex items-center justify-center shadow-md text-5xl shrink-0 animate-float">
+            {fruit.emoji}
+          </div>
+          <div className="flex-1 min-w-0">
+            <h1 className="text-3xl font-bold text-gray-900 leading-tight">{fruit.nameId}</h1>
+            <p className="text-sm text-gray-400 italic mt-1">{fruit.nameEn}</p>
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <SeasonBadge fruitId={fruitId} />
+              <span className="text-xs text-gray-400">
+                Rp {fruit.priceRange.low.toLocaleString('id-ID')} – Rp {fruit.priceRange.high.toLocaleString('id-ID')} / kg
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
       {/* ── City tabs ── */}
-      <div className="overflow-x-auto -mx-4 px-4">
+      <div className="overflow-x-auto -mx-4 px-4 scrollbar-hide">
         <div className="flex gap-2 w-max">
           {CITIES.map((c) => (
             <button
               key={c.id}
               onClick={() => handleCityClick(c.id)}
-              className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+              className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                 c.id === cityId
-                  ? 'bg-primary-600 text-white shadow-sm'
-                  : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                  ? 'bg-gradient-to-r from-primary-600 to-emerald-600 text-white shadow-sm scale-[1.02]'
+                  : 'bg-white text-gray-600 border border-gray-200 hover:border-primary-300 hover:text-primary-700 hover:bg-primary-50/50 shadow-sm'
               }`}
             >
               {c.name}
@@ -271,7 +290,7 @@ export default function FruitDetailPage() {
 
       {/* ── Error banner ── */}
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700 flex items-center gap-2">
+        <div className="card-premium border-red-200 bg-red-50/60 p-4 text-sm text-red-700 flex items-center gap-2">
           <span>⚠️</span>
           <span>{error}</span>
           <button
@@ -293,10 +312,10 @@ export default function FruitDetailPage() {
       />
 
       {/* ── Chart ── */}
-      <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
+      <div className="card-premium p-5">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-base font-semibold text-gray-800">Grafik Harga — {city.name}</h2>
-          <span className="text-xs text-gray-400">{city.market}</span>
+          <h2 className="text-base font-bold text-gray-800">Grafik Harga — {city.name}</h2>
+          <span className="text-xs text-gray-400 bg-gray-50 px-2 py-0.5 rounded-md">{city.market}</span>
         </div>
         <PriceChart
           history={history}
@@ -310,11 +329,16 @@ export default function FruitDetailPage() {
       <RecommendationCard fruitId={fruitId} cityId={cityId} />
 
       {/* ── Season info card ── */}
-      <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm space-y-3">
-        <h2 className="text-base font-semibold text-gray-800">Info Musim &amp; Produksi</h2>
+      <div className="card-premium p-5 space-y-4">
+        <div className="flex items-center gap-2">
+          <div className="w-1 h-5 rounded-full bg-primary-500 shrink-0" />
+          <h2 className="text-base font-bold text-gray-800">Info Musim &amp; Produksi</h2>
+        </div>
 
         <div className="flex items-start gap-3">
-          <div className="text-2xl leading-none mt-0.5">🌿</div>
+          <div className="w-9 h-9 rounded-xl bg-primary-50 flex items-center justify-center shrink-0 text-xl">
+            🌿
+          </div>
           <div>
             <p className="text-sm font-medium text-gray-700 mb-0.5">Daerah Penghasil</p>
             <p className="text-sm text-gray-600">{fruit.growingRegions.join(', ')}</p>
@@ -322,7 +346,7 @@ export default function FruitDetailPage() {
         </div>
 
         <div className="flex items-start gap-3">
-          <div className="text-2xl leading-none mt-0.5">
+          <div className="w-9 h-9 rounded-xl bg-primary-50 flex items-center justify-center shrink-0 text-xl">
             {seasonStatus === 'peak' ? '🌸' : seasonStatus === 'off' ? '🍂' : '🌤️'}
           </div>
           <div>
@@ -332,14 +356,16 @@ export default function FruitDetailPage() {
         </div>
 
         <div className="flex items-start gap-3">
-          <div className="text-2xl leading-none mt-0.5">📝</div>
+          <div className="w-9 h-9 rounded-xl bg-primary-50 flex items-center justify-center shrink-0 text-xl">
+            📝
+          </div>
           <div>
             <p className="text-sm text-gray-600">{fruit.description}</p>
           </div>
         </div>
 
         {fruit.ramadanImpact !== 'none' && (
-          <div className="bg-warm-50 rounded-xl px-4 py-3">
+          <div className="bg-gradient-to-r from-warm-50 to-amber-50 border border-warm-200 rounded-xl px-4 py-3">
             <p className="text-xs font-semibold text-warm-700 mb-0.5">Dampak Ramadan</p>
             <p className="text-xs text-warm-600 capitalize">
               Pengaruh harga saat Ramadan:{' '}
