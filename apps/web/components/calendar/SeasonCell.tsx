@@ -36,12 +36,16 @@ export function SeasonCell({ fruitId, monthIndex, isSelected, isCurrentMonth, on
       onClick={() => onClick(fruitId, monthIndex)}
       aria-label={`${fruitId} bulan ${monthIndex + 1}`}
       aria-pressed={isSelected}
-      style={{ backgroundColor: bg, color: textColor }}
+      style={{
+        backgroundColor: bg,
+        color: textColor,
+        ...(status === 'peak' ? { boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3)' } : {}),
+      }}
       className={[
-        'w-full h-8 min-w-[32px] rounded-sm transition-all duration-150 cursor-pointer',
+        'w-full h-8 min-w-[32px] rounded transition-all duration-150 cursor-pointer',
         'hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1',
-        isSelected ? 'ring-2 ring-blue-500 ring-offset-1 z-10 relative' : '',
-        isCurrentMonth ? 'ring-1 ring-yellow-400' : '',
+        isSelected ? 'ring-2 ring-primary-500 ring-offset-1 scale-[1.08] z-10 relative' : '',
+        isCurrentMonth ? 'ring-2 ring-amber-400' : '',
       ].filter(Boolean).join(' ')}
     />
   );

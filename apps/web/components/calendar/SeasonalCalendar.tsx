@@ -69,18 +69,27 @@ interface DetailPanelProps {
 function DetailPanel({ fruit, monthIndex, onClose }: DetailPanelProps) {
   const status = getSeasonStatus(fruit.id, monthIndex + 1);
 
-  const statusBg: Record<SeasonStatus, string> = {
-    peak:       'bg-green-50 border-green-200',
-    transition: 'bg-yellow-50 border-yellow-200',
-    normal:     'bg-gray-50 border-gray-200',
-    off:        'bg-red-50 border-red-200',
+  const statusBorderColor: Record<SeasonStatus, string> = {
+    peak:       'border-l-green-500',
+    transition: 'border-l-amber-400',
+    normal:     'border-l-gray-300',
+    off:        'border-l-red-400',
+  };
+
+  const statusEmojiGradient: Record<SeasonStatus, string> = {
+    peak:       'from-green-100 to-emerald-50',
+    transition: 'from-amber-100 to-yellow-50',
+    normal:     'from-gray-100 to-slate-50',
+    off:        'from-red-100 to-rose-50',
   };
 
   return (
-    <div className={`mt-4 rounded-2xl border p-5 shadow-sm ${statusBg[status]}`}>
+    <div className={`mt-4 card-premium border-l-4 ${statusBorderColor[status]} p-5`}>
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
-          <span className="text-3xl leading-none">{fruit.emoji}</span>
+          <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${statusEmojiGradient[status]} flex items-center justify-center shrink-0`}>
+            <span className="text-3xl leading-none">{fruit.emoji}</span>
+          </div>
           <div>
             <h3 className="text-base font-semibold text-gray-900">{fruit.nameId}</h3>
             <p className="text-xs text-gray-500 italic">{fruit.nameEn}</p>
@@ -90,7 +99,7 @@ function DetailPanel({ fruit, monthIndex, onClose }: DetailPanelProps) {
           type="button"
           onClick={onClose}
           aria-label="Tutup panel"
-          className="text-gray-400 hover:text-gray-600 text-xl leading-none p-1 -mt-1 -mr-1 rounded-lg hover:bg-white/60 transition-colors"
+          className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 shrink-0 transition-colors"
         >
           ×
         </button>
@@ -99,10 +108,10 @@ function DetailPanel({ fruit, monthIndex, onClose }: DetailPanelProps) {
       <div className="mt-3 space-y-2.5">
         {/* Month + status */}
         <div>
-          <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+          <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
             {MONTH_LABELS_FULL[monthIndex]}
           </span>
-          <p className="text-sm font-medium text-gray-800 mt-0.5">{STATUS_LABELS[status]}</p>
+          <p className="text-base font-semibold text-gray-800 mt-0.5">{STATUS_LABELS[status]}</p>
         </div>
 
         {/* Regions */}
@@ -110,7 +119,7 @@ function DetailPanel({ fruit, monthIndex, onClose }: DetailPanelProps) {
           <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Daerah Penghasil</p>
           <div className="flex flex-wrap gap-1.5">
             {fruit.growingRegions.map((r) => (
-              <span key={r} className="px-2 py-0.5 rounded-full bg-white/70 text-xs text-gray-700 border border-gray-200">
+              <span key={r} className="px-2.5 py-1 rounded-full bg-primary-50 border border-primary-100 text-xs text-primary-800">
                 {r}
               </span>
             ))}
@@ -121,14 +130,14 @@ function DetailPanel({ fruit, monthIndex, onClose }: DetailPanelProps) {
         <div className="flex items-center justify-between pt-1 border-t border-gray-200/60">
           <div>
             <p className="text-xs text-gray-500">Kisaran harga</p>
-            <p className="text-sm font-semibold text-gray-800">
+            <p className="text-base font-bold text-gradient-green">
               {formatPrice(fruit.priceRange.low)} – {formatPrice(fruit.priceRange.high)}
-              <span className="font-normal text-gray-500"> / kg</span>
+              <span className="font-normal text-gray-500 text-xs"> / kg</span>
             </p>
           </div>
           <Link
             href={`/buah/${fruit.id}`}
-            className="shrink-0 px-3 py-1.5 bg-primary-600 text-white text-xs font-semibold rounded-lg hover:bg-primary-700 transition-colors"
+            className="shrink-0 bg-gradient-to-r from-primary-600 to-emerald-600 text-white rounded-xl px-4 py-2 text-xs font-semibold hover:shadow-lg hover:scale-[1.02] transition-all duration-200"
           >
             Lihat Detail →
           </Link>
@@ -181,7 +190,7 @@ export function SeasonalCalendar({ filterOnlySeasonal = false, sortMode = 'az', 
         {/* The "Bulan Ini" tag — positioned over the current month column */}
         {/* We offset: sticky name col is ~160px, each cell col is 1fr of remaining */}
         <div
-          className="absolute text-xs font-semibold text-yellow-600 bg-yellow-50 border border-yellow-300 rounded-full px-2 py-0.5 whitespace-nowrap"
+          className="absolute text-xs font-semibold text-white bg-amber-500 shadow-sm rounded-full px-2 py-0.5 whitespace-nowrap"
           style={{
             left: `calc(160px + (${currentMonth0} + 0.5) * ((100% - 160px) / 12) )`,
             transform: 'translateX(-50%)',
@@ -194,7 +203,7 @@ export function SeasonalCalendar({ filterOnlySeasonal = false, sortMode = 'az', 
       </div>
 
       {/* Scrollable grid wrapper */}
-      <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm bg-white">
+      <div className="overflow-x-auto rounded-2xl border border-primary-100/60 ring-1 ring-primary-200/30 shadow-md bg-white">
         <div
           className="grid"
           style={{
@@ -204,7 +213,7 @@ export function SeasonalCalendar({ filterOnlySeasonal = false, sortMode = 'az', 
         >
           {/* ── Header row ── */}
           {/* Sticky corner */}
-          <div className="sticky left-0 z-20 bg-white border-b border-r border-gray-200 px-2 py-2 flex items-center">
+          <div className="sticky left-0 z-20 bg-gradient-to-br from-gray-50 to-white border-b border-r border-gray-100 px-2 py-2 flex items-center">
             <span className="text-xs font-semibold text-gray-500">Buah</span>
           </div>
 
@@ -215,11 +224,11 @@ export function SeasonalCalendar({ filterOnlySeasonal = false, sortMode = 'az', 
               className={[
                 'border-b border-gray-200 text-center py-2 px-1',
                 i === currentMonth0
-                  ? 'bg-yellow-50 ring-2 ring-yellow-400 ring-inset'
-                  : 'bg-gray-50',
+                  ? 'bg-gradient-to-b from-amber-50 to-yellow-50 ring-2 ring-amber-300 ring-inset'
+                  : 'bg-gray-50/80',
               ].join(' ')}
             >
-              <span className={`text-xs font-semibold ${i === currentMonth0 ? 'text-yellow-700' : 'text-gray-500'}`}>
+              <span className={`text-xs font-semibold ${i === currentMonth0 ? 'text-amber-700' : 'text-gray-500'}`}>
                 {label}
               </span>
             </div>
@@ -233,11 +242,11 @@ export function SeasonalCalendar({ filterOnlySeasonal = false, sortMode = 'az', 
               /* Sticky fruit name cell */
               <div
                 key={`name-${fruit.id}`}
-                className="sticky left-0 z-10 bg-white border-b border-r border-gray-100 px-2 py-1 flex items-center gap-1.5 min-h-[34px]"
+                className="sticky left-0 z-10 bg-white border-b border-r border-gray-100 px-2 py-1 flex items-center gap-1.5 min-h-[34px] hover:bg-primary-50/40 transition-colors"
               >
                 <span className="text-base leading-none">{fruit.emoji}</span>
                 <span className="text-xs font-medium text-gray-800 truncate flex-1">{fruit.nameId}</span>
-                {isInPeakNow && <span className="text-xs leading-none shrink-0" title="Musim panen sekarang">🔥</span>}
+                {isInPeakNow && <span className="text-xs leading-none shrink-0 animate-pulse" title="Musim panen sekarang">🔥</span>}
               </div>,
 
               /* 12 season cells */
@@ -270,22 +279,22 @@ export function SeasonalCalendar({ filterOnlySeasonal = false, sortMode = 'az', 
       )}
 
       {/* Legend */}
-      <div className="mt-4 flex flex-wrap gap-3 items-center text-xs text-gray-600">
+      <div className="card-premium p-3 mt-4 flex flex-wrap gap-3 items-center text-xs text-gray-600">
         <span className="font-semibold text-gray-700">Keterangan:</span>
         <span className="flex items-center gap-1.5">
-          <span className="w-4 h-4 rounded-sm inline-block" style={{ backgroundColor: '#16a34a' }} />
+          <span className="w-4 h-4 rounded-lg inline-block shadow-sm border border-green-300" style={{ backgroundColor: '#16a34a' }} />
           Panen Raya
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="w-4 h-4 rounded-sm inline-block" style={{ backgroundColor: '#86efac' }} />
+          <span className="w-4 h-4 rounded-lg inline-block shadow-sm border border-green-200" style={{ backgroundColor: '#86efac' }} />
           Transisi
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="w-4 h-4 rounded-sm inline-block" style={{ backgroundColor: '#dcfce7' }} />
+          <span className="w-4 h-4 rounded-lg inline-block shadow-sm border border-green-100" style={{ backgroundColor: '#dcfce7' }} />
           Normal
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="w-4 h-4 rounded-sm inline-block bg-gray-200" />
+          <span className="w-4 h-4 rounded-lg inline-block shadow-sm border border-gray-200 bg-gray-200" />
           Tidak Musim
         </span>
         <span className="flex items-center gap-1.5">
